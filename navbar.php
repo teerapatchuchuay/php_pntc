@@ -32,6 +32,9 @@
                     <li class="nav-item">
                         <a href="./index.php?menu=2"class="nav-link <?= $menu == '2' ? 'active' : '' ?>">ประวัติการสั่งซื้อ</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="./../gen/login.php" class="nav-link">เข้าสู่ระบบและสมัครสมาชิก</a>
+                    </li>
                 </ul>
                 <ul class="nav nav-link">
                     <form action="" method="post" class="d-flex ">

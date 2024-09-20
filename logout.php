@@ -7,5 +7,5 @@ if($_SESSION['usertype'] == 'shop'){
 }else{
     session_destroy();
     unset($_SESSION['userid']);
-    header('location:./gen/login.php');
+    header('location:./customer/index.php');
 }

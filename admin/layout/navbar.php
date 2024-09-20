@@ -10,6 +10,7 @@
         <li class="nav-item py-2 py-sm-0"><a href="index.php?menu=1" class="nav-link <?= $menu == '1' ? 'active' : '' ?>">จัดการผู้ใช้งาน</a></li>
         <li class="nav-item py-2 py-sm-0"><a href="index.php?menu=2" class="nav-link <?= $menu == '2' ? 'active' : '' ?>">จัดการประเภทร้าน</a></li>
         <li class="nav-item py-2 py-sm-0"><a href="index.php?menu=3" class="nav-link <?= $menu == '3' ? 'active' : '' ?>">การตั้งค่า</a></li>
+        <li class="nav-item py-2 py-sm-0"><a href="index.php?menu=4" class="nav-link <?= $menu == '4' ? 'active' : '' ?>">จัดการโค้ดส่วนลด</a></li>
         <li class="nav-item py-2 py-sm-0"><a href="./../logout.php" class="btn btn-danger mt-4" onclick = "return confirm('ต้องการออกจากระบบหรือไม่?')">ออกจากระบบ</a></li>
     </ul>
 </div>
