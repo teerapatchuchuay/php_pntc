@@ -61,7 +61,6 @@ $userid = $checkuser ? $_SESSION['userid'] : null;
                                             <div class="card shadow ">
                                                 <img src="./../img/<?= $fetchrest->img_rest ?>" class="img-fluid" style="object-fit:cover; max-height:100px; " alt="">
                                                 <div class="card-body">
-                                                    <h5><?= $fetchrest->name_rest ?></h5>
                                                     <div class="card-title">
                                                         <p><?= $fetchrest->address_rest ?></p>
                                                     </div>

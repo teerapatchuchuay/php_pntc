@@ -61,8 +61,14 @@ if(!isset($_GET['id_rest'])){
         $cart = $db->select("cart,food", "*", "WHERE cart.id_f = food.id_f AND cart.id_cus = $userid AND cart.id_rest = $id_rest");
         
         while ($fetchcart = $cart->fetch_object()) {
-            $dis = $fetchcart->price_f * $fetchcart->amount * $fetchcart->discount_f / 100;
-            $total = $fetchcart->price_f * $fetchcart->amount - $dis;
+            if(isset($_SESSION['id_code'])){
+                $id_code = $_SESSION['id_code'];
+                $code = $db->select("codes_discount","*" , "WHERE id_code = $id_code");
+                $fetchcode = $code->fetch_object();
+                $dis = ($fetchcart->price_f * $fetchcart->amount * $fetchcart->discount_f / 100) + $fetchcode->price;
+            }else{
+                $dis = $fetchcart->price_f * $fetchcart->amount * $fetchcart->discount_f / 100;
+            } 
             $id_f = $fetchcart->id_f;
             $amount = $fetchcart->amount;
     
@@ -81,9 +87,11 @@ if(!isset($_GET['id_rest'])){
         
         if ($db->query) {
             $db->setalert("success", "สั่งซื้อสำเร็จ");
+             unset($_SESSION['id_code']);
             return;
         } else {
             $db->setalert("error", "เกิดข้อผิดพลาด");
+            unset($_SESSION['id_code']);
             return;
         }
     }
@@ -104,11 +112,11 @@ if(!isset($_GET['id_rest'])){
 </head>
 <body>
     <?php include_once('./../navbar.php'); ?>
-    <div class="container-fluid">
+    <div class="container">
         <div style="height:70px;"></div>
         <div class="row">
             <div class="col-1"></div>
-            <div class="col-6">
+            <div class="col-lg-6 col-md-8 col-sm-12">
                 <div class="card shadow">
                     <div class="card-body">
                       <img src="./../img/<?=$fetchrest->img_rest?>" class="w-100 h-25 img-fluid " style="object-fit:cover; max-height:100px;" alt="">
@@ -126,7 +134,7 @@ if(!isset($_GET['id_rest'])){
                       </ul>
                       <?php $db->loadalert(); ?>
                       <div class="mt-2"></div>
-                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                      <div class="row">
                         <?php 
                         if(isset($_GET['type_f'])){
                             $type_f = $_GET['type_f'];
@@ -138,7 +146,7 @@ if(!isset($_GET['id_rest'])){
                             $dis = $fetchfood->price_f * $fetchfood->discount_f/100;
                             $total = $fetchfood->price_f  - $dis;
                         ?>
-                        <div class="col">
+                        <div class="col-lg-4 col-md-6 col-sm-8">
                             <div class="card shadow">
                                 <img src="./../img/<?=$fetchfood->img_f?>" class="img-fluid" style="odject-fit:cover; max-height:110px;" alt="">
                                 <div class="card-body">
@@ -205,7 +213,7 @@ if ($re->num_rows > 0) {
 ?>
 
 </div>
-    <div class="col-5">
+    <div class="col-lg-5 col-md-8 col-sm-12">
     <div class="card shadow-lg border-0">
         <div class="card-header  text-center">
             <h2>ตระกร้าสินค้า</h2>
@@ -263,6 +271,7 @@ if ($re->num_rows > 0) {
             if ($code_discount->num_rows > 0) {
                 $fetch_discount = $code_discount->fetch_object();
                 $discount = $fetch_discount->price;
+                $_SESSION['id_code'] = $fetch_discount->id_code;
         
                 if ($sum > $discount) {
                     $total_discount = $sum - $discount;
@@ -288,9 +297,9 @@ if ($re->num_rows > 0) {
         <div class="col-4">
             <?php
             if (isset($total_discount)) {
-                echo "<h3 class='text-success mb-0'>" . number_format($total_discount, 2) . " บาท</h3>";
+                echo "<h3 class='text-success mb-0'>" . $total_discount . " บาท</h3>";
             } else {
-                echo "<h3 class='text-primary mb-0'>" . number_format($sum, 2) . " บาท</h3>";
+                echo "<h3 class='text-primary mb-0'>" . $sum . " บาท</h3>";
             }
             ?>
         </div>
