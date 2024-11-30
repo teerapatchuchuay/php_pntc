@@ -4,7 +4,7 @@ class db{
     public $query;
 
     function __construct(){
-        $this->mysqli = new mysqli("localhost","root","","foodtest");
+        $this->mysqli = new mysqli("localhost","pntc","asdf","pntc");
         mysqli_query($this->mysqli,"SET NAMES utf8");
         date_default_timezone_set("Asia/Bangkok");
     }
