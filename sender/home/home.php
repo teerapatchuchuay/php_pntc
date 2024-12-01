@@ -28,7 +28,7 @@ $db = new db();
                     <div class="card-body">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                         <?php 
-                        $rest = $db->select("orderd,rest","*","WHERE orderd.id_rest = rest.id_rest AND status_or = 2 ");
+                        $rest = $db->select("orderd,rest","*","WHERE orderd.id_rest = rest.id_rest AND status_or = 2 GROUP BY rest.id_rest ");
                         while($fetchrest = $rest->fetch_object()){
                         ?>
                         <div class="col">
