@@ -79,7 +79,6 @@ function  display ()
     }
     function setalert($key,$val){
         $_SESSION[$key] = "$val";
-        // header('location:'.$_SERVER['REQUEST_URI']);
         echo "<script>window.location.href='".$_SERVER['REQUEST_URI']."'</script>";
     }
     function loadalert(){
