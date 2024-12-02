@@ -3,6 +3,8 @@ class db{
     public $mysqli;
     public $query;
 
+function  display ()
+
     function __construct(){
         $this->mysqli = new mysqli("localhost","pntc","asdf","pntc");
         mysqli_query($this->mysqli,"SET NAMES utf8");
